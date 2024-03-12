@@ -2,4 +2,4 @@ from .util import input
 from .util import output
 
 
-__version__ = '0.1'
+__version__ = '0.1_dev'
