@@ -20,11 +20,12 @@ def get_version(rel_path):
 setup(
     name='orcawrapper',
     version=get_version("orcawrapper/__init__.py"),
-    description='This is a tool for basic analysis in Potassium Channel MD simulation.',
+    description='Tool sets for read/write orca input file',
     author='Chenggong Hui',
     author_email='chenggong.hui@mpinat.mpg.de',
     packages=find_packages(),
-    scripts=['script/orcainp_2_pdb.py'
+    scripts=['script/orcainp_2_pdb.py',
+             'script/orca_update_xyz.py'
              ],
-    install_requires=["numpy", "matplotlib"],
+    install_requires=["numpy", "matplotlib", "MDAnalysis"],
 )
