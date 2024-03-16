@@ -35,6 +35,22 @@ class MyTestCase(unittest.TestCase):
                                              [4, 5, 6],
                                              [7, 8, 9]]))
 
+    def test_write(self):
+        print("# Test : write(), write an input file.")
+        oinp = orca_input("01-inp_xyz/01-xtb2.inp")
+        new_xyz = np.concatenate(([[1, 2, 3],
+                                   [4, 5, 6],
+                                   [7, 8, 9],
+                                   ], np.random.rand(497, 3)))
+        oinp.update_xyz(new_xyz)
+        oinp.write("01-inp_xyz/01-xtb2_new.inp")
+        oinp_new = orca_input("01-inp_xyz/01-xtb2_new.inp")
+        np.testing.assert_allclose(oinp_new.xyz, new_xyz)
+        np.testing.assert_allclose(oinp_new.xyz[:3, :],
+                                   np.array([[1, 2, 3],
+                                             [4, 5, 6],
+                                             [7, 8, 9]]))
+
 
 
 if __name__ == '__main__':

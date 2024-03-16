@@ -60,11 +60,33 @@ class orca_input:
         else:
             self.xyz = xyz
 
-    def write(self, file_name, xyz_format="%15.12f"):
+    def write(self, file_name, xyz_format="15.12f"):
         """
         write the orca input file. We will use the same format as the original file. and write new xyz.
         :param file_name: str, file name
         :return: None
         """
-        pass
+        new_lines = []
+        # lines before xyz can be copied as it is
+        for l in self.lines[:self.xyz_index_tuple[0]+1]:
+            new_lines.append(l)
+
+        # write xyz
+        for l_old, xyz in zip(self.lines[self.xyz_index_tuple[0]+1: self.xyz_index_tuple[1]], self.xyz):
+            words = l_old.split()
+            if len(words) == 4:
+                l_new = l_old.split()[0] + " " + " ".join([f"{i:{xyz_format}}" for i in xyz]) + "\n"
+            elif len(words) > 4:
+                l_new = l_old.split()[0] + " " + " ".join([f"{i:{xyz_format}}" for i in xyz]) + " " + " ".join(words[4:]) + "\n"
+            else:
+                raise ValueError("xyz line has less than 4 words.")
+            new_lines.append(l_new)
+
+        # lines after xyz can be copied as it is
+        for l in self.lines[self.xyz_index_tuple[1]:]:
+            new_lines.append(l)
+
+        with open(file_name, "w") as f:
+            f.writelines(new_lines)
+
 
