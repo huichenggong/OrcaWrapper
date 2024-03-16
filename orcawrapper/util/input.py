@@ -7,9 +7,9 @@ class orca_input:
         self.file_name = Path(file_name)
         with open(file_name, "r") as f:
             self.lines = f.readlines()
-        b1, ind_tuple = self.check_xyz()
-        if b1:
-            self.xyz = self.get_xyz(ind_tuple)
+        self.has_xyz, self.xyz_index_tuple = self.check_xyz()
+        if self.has_xyz:
+            self.xyz = self.get_xyz(self.xyz_index_tuple)
         else:
             self.xyz = None
 
@@ -48,3 +48,23 @@ class orca_input:
         xyz = [[float(i) for i in l.split()[1:4]] for l in xyz_lines]
         xyz = np.array(xyz)
         return xyz
+
+    def update_xyz(self, xyz):
+        """
+        update the xyz coordinate in the input file
+        :param xyz: 3xN np.array, new xyz coordinate
+        :return: None
+        """
+        if self.xyz.shape != xyz.shape:
+            raise ValueError("New xyz shape does not match with the old one.")
+        else:
+            self.xyz = xyz
+
+    def write(self, file_name, xyz_format="%15.12f"):
+        """
+        write the orca input file. We will use the same format as the original file. and write new xyz.
+        :param file_name: str, file name
+        :return: None
+        """
+        pass
+
