@@ -2,6 +2,7 @@
 import argparse
 import MDAnalysis as mda
 from orcawrapper import orca_input
+import sys
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert ORCA input to PDB format. If pdb file is given, residue '
@@ -20,8 +21,8 @@ if __name__ == "__main__":
     # Parse the arguments
     args = parser.parse_args()
 
-    # Your script can now use args.pdb, args.inp, and args.o for further processing
-    print(f"pdb file: {args.pdb}")
+    print("The command you used is :")
+    print(" ".join(sys.argv))
 
     if args.pdb:
         print(f"pdb file: {args.pdb}")
