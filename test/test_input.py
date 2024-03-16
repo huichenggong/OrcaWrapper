@@ -38,6 +38,8 @@ class MyTestCase(unittest.TestCase):
     def test_write(self):
         print("# Test : write(), write an input file.")
         oinp = orca_input("01-inp_xyz/01-xtb2.inp")
+        # set random seed
+        np.random.seed(0)
         new_xyz = np.concatenate(([[1, 2, 3],
                                    [4, 5, 6],
                                    [7, 8, 9],
