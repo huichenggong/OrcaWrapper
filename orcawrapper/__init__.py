@@ -1,4 +1,4 @@
-from .util import input
+from .util.input import orca_input
 from .util import output
 
 
