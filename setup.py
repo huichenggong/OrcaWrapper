@@ -27,5 +27,5 @@ setup(
     scripts=['script/orcainp_2_pdb.py',
              'script/orca_update_xyz.py'
              ],
-    install_requires=["numpy", "matplotlib", "MDAnalysis"],
+    install_requires=["numpy", "matplotlib", "MDAnalysis", "pandas"],
 )
